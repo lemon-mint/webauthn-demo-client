@@ -19,13 +19,13 @@ const new_credential = (sitemane, uname, udname) => {
                 alg: -7
             }],
             timeout: 60000,
-            attestation: "direct",
+            attestation: "none",
             extensions: {
                 uvm: true,
                 exts: true
             },
             authenticatorSelection: {
-                authenticatorAttachment: "cross-platform",
+                //authenticatorAttachment: "cross-platform",
                 userVerification: "preferred"
             },
             excludeCredentials: []
