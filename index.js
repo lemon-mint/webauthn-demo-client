@@ -26,7 +26,8 @@ const new_credential = (sitemane, uname, udname) => {
             },
             authenticatorSelection: {
                 //authenticatorAttachment: "cross-platform",
-                userVerification: "preferred"
+                userVerification: "preferred",
+                requireResidentKey: false
             },
             excludeCredentials: []
         }
