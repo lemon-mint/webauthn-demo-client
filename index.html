@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello, world webauthn</title>
+    <script src="https://cdn.jsdelivr.net/npm/cbor-js@0.1.0/cbor.js" integrity="sha256-QAEwOLpcmrNELyKVU6o13Q1Rtlj9/E3bod4qq1EC2cA=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
+    <script src="index.js"></script>
+    <style>
+        html {
+            background-color: lightslategray;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Hello, Webauthn</h1>
+    SiteName: <input type="text" id="sitename" value="Webauthn Demo"><br>
+    Username: <input type="text" id="username" value="User001"><br>
+    DisplayName: <input type="text" id="displayname" value="User001DisplayName"><br>
+    <button id="credentials_create">navigator.credentials.create</button><br>
+    Challenge: <input type="text" id="challenge"
+        value="5f3ff2249e53c7890c0c08816f1a818053fd45aabaf8f78feeb6e05ecac9cf8d"><br>
+    <button id="credentials_get">navigator.credentials.get</button>
+
+</body>
+
+</html>
