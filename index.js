@@ -36,7 +36,7 @@ const new_credential = (sitemane, uname, udname) => {
 }
 
 const usekey = async (challenge, id) => {
-    console.log(hex2arr(challenge));
+    //console.log(hex2arr(challenge));
     const assertion = await navigator.credentials.get(
         {
             publicKey: {
@@ -55,9 +55,9 @@ const usekey = async (challenge, id) => {
     );
     //console.log("hash:", arr2hex(await crypto.subtle.digest("SHA-256", hex2arr(challenge))));
     //response.authenticatorData
-    console.log("authenticatorData b64:", arr2hex(assertion.response.authenticatorData))
+    console.log("authenticatorData:", arr2hex(assertion.response.authenticatorData))
     //response.clientDataJSON
-    console.log("clientDataJSON b64:", arr2hex(assertion.response.clientDataJSON))
+    console.log("clientDataJSON:", arr2hex(assertion.response.clientDataJSON))
     console.log("sig:", arr2hex(assertion.response.signature))
     return assertion
 }
