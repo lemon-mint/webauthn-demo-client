@@ -6,7 +6,6 @@ Simple Webauthn Demo Page
 [Reference](https://www.iana.org/assignments/cose/cose.xhtml)
 
 - [x] ES256 (Alg: -7)
-- [ ] ES512 (Alg: -36)
 
 ## navigator.credentials.get
 
