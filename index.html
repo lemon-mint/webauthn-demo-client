@@ -7,6 +7,7 @@
     <title>Hello, world webauthn</title>
     <script src="https://cdn.jsdelivr.net/npm/cbor-js@0.1.0/cbor.js" integrity="sha256-QAEwOLpcmrNELyKVU6o13Q1Rtlj9/E3bod4qq1EC2cA=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <!--
         <script src="index.js"></script>
     -->
@@ -18,16 +19,21 @@
     </style>
 </head>
 
-<body>
-    <h1>Hello, Webauthn</h1>
-    SiteName: <input type="text" id="sitename" value="Webauthn Demo"><br>
-    Username: <input type="text" id="username" value="User001"><br>
-    DisplayName: <input type="text" id="displayname" value="User001DisplayName"><br>
-    <button id="credentials_create">navigator.credentials.create</button><br>
-    Challenge: <input type="text" id="challenge"
-        value="5f3ff2249e53c7890c0c08816f1a818053fd45aabaf8f78feeb6e05ecac9cf8d"><br>
-    <button id="credentials_get">navigator.credentials.get</button>
+<body style="background-color: lightslategray;">
+    <div class="container" style="background-color: lightslategray;">
+        <h1>Hello, Webauthn</h1>
 
+        SiteName: <input type="text" class="form-control" id="sitename" value="Webauthn Demo"><br>
+        Username: <input type="text" class="form-control" id="username" value="User001"><br>
+        DisplayName: <input type="text" class="form-control" id="displayname" value="User001DisplayName"><br>
+
+        <button class="btn btn-dark" id="credentials_create">navigator.credentials.create</button><br>
+
+        Challenge: <input type="text" class="form-control" id="challenge" value="5f3ff2249e53c7890c0c08816f1a818053fd45aabaf8f78feeb6e05ecac9cf8d"><br>
+
+        <button class="btn btn-dark" id="credentials_get">navigator.credentials.get</button>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 </body>
 
 </html>
