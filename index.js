@@ -55,10 +55,34 @@ const usekey = async (challenge, id) => {
     );
     //console.log("hash:", arr2hex(await crypto.subtle.digest("SHA-256", hex2arr(challenge))));
     //response.authenticatorData
-    console.log("authenticatorData:", arr2hex(assertion.response.authenticatorData))
+    console.log("authenticatorData:", arr2hex(assertion.response.authenticatorData));
     //response.clientDataJSON
-    console.log("clientDataJSON:", arr2hex(assertion.response.clientDataJSON))
-    console.log("sig:", arr2hex(assertion.response.signature))
+    console.log("clientDataJSON:", arr2hex(assertion.response.clientDataJSON));
+    console.log("sig:", arr2hex(assertion.response.signature));
+    const tmp = async function () {
+
+        const data = JSON.stringify({
+            "authData": arr2hex(assertion.response.authenticatorData),
+            "Clientjson": arr2hex(assertion.response.clientDataJSON),
+            "signature": arr2hex(assertion.response.signature)
+        });
+        let req = new XMLHttpRequest();
+        req.open("POST", RPserver_Verify);
+        req.setRequestHeader("Content-type", "application/json;charset=UTF-8");
+
+        req.setRequestHeader("authData", arr2hex(assertion.response.authenticatorData));
+        req.setRequestHeader("Clientjson", arr2hex(assertion.response.clientDataJSON));
+        req.setRequestHeader("signature", arr2hex(assertion.response.signature));
+        
+        req.send(data);
+        req.onreadystatechange = (e) => {
+            if (req.readyState == 4) {
+                console.log(data);
+            }
+        };
+    };
+    tmp();
+
     return assertion
 }
 
@@ -85,6 +109,7 @@ function newkey(attestationResponse) {
     console.log("Publickey X:", arr2hex(publicKeyObject["-2"]));
     console.log("Publickey Y:", arr2hex(publicKeyObject["-3"]));
     cid = arr2hex(credentialId);
+    return authData
 }
 
 

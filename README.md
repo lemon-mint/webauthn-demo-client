@@ -11,12 +11,13 @@ Simple Webauthn Demo Page
 
 - [x] Working example
 - [x] Export Public Key
-- [ ] XHR Public Key
-- [ ] attestation
+- [x] XHR Authenticator response
 
 ## navigator.credentials.create
 
 - [x] AuthenticatorAssertion
+- [ ] XHR Public Key
+- [ ] XHR attestation
 - [ ] Verify With Public Key
 - [ ] Parse authenticatorData
 
