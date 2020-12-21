@@ -1,16 +1,16 @@
 
 let cid = "";
 
-const new_credential = (sitemane, uname, udname) => {
+const new_credential = (sitemane, uname, udname, challenge, id) => {
     let copt = {
         publicKey: {
             rp: {
                 name: sitemane,
                 id: window.location.host.split(":")[0]
             },
-            challenge: new Uint8Array(32),
+            challenge: hex2arr(challenge),
             user: {
-                id: new Uint8Array(16),
+                id: hex2arr(id),
                 name: uname,
                 displayName: udname
             },
@@ -108,11 +108,13 @@ window.addEventListener(
         btn_create.addEventListener(
             "click",
             () => {
-                let credential = new_credential(sitename.value, username.value, displayname.value);
+                let randbuf = new Uint8Array(16);
+                window.crypto.getRandomValues(randbuf)
+                let credential = new_credential(sitename.value, username.value, displayname.value, challenge.value, arr2hex(randbuf));
                 credential.then(
                     function (newCredentialInfo) {
                         attestationResponse = newCredentialInfo.response;
-                        newkey(attestationResponse)
+                        newkey(attestationResponse);
                     }
                 )
             }

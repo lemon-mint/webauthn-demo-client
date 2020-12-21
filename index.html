@@ -8,13 +8,13 @@
     <script src="https://cdn.jsdelivr.net/npm/cbor-js@0.1.0/cbor.js" integrity="sha256-QAEwOLpcmrNELyKVU6o13Q1Rtlj9/E3bod4qq1EC2cA=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
     <script>
-        let old = console.log;
+        let log = console.log;
         console.log = (
             async function(...data) {
                 let msg = Array.prototype.slice.call(data).join(" ");
-                old(...data);
-                $("#console").append(
-                    $(
+                log(...data);
+                jQuery("#console").append(
+                    jQuery(
                         "<p></p>"
                     ).text(
                         msg
