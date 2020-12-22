@@ -64,7 +64,8 @@ const usekey = async (challenge, id) => {
         const data = JSON.stringify({
             "authData": arr2hex(assertion.response.authenticatorData),
             "Clientjson": arr2hex(assertion.response.clientDataJSON),
-            "signature": arr2hex(assertion.response.signature)
+            "signature": arr2hex(assertion.response.signature),
+            "UserName": document.getElementById("username").value
         });
         let req = new XMLHttpRequest();
         req.open("POST", RPserver_Verify);
