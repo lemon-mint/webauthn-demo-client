@@ -1,4 +1,5 @@
 
+let SessionID = "";
 let cid = "";
 
 const new_credential = (sitemane, uname, udname, challenge, id) => {
@@ -35,7 +36,7 @@ const new_credential = (sitemane, uname, udname, challenge, id) => {
     return navigator.credentials.create(copt)
 }
 
-const usekey = async (challenge, id) => {
+const usekey = async (challenge, id, SessionID) => {
     //console.log(hex2arr(challenge));
     const assertion = await navigator.credentials.get(
         {
@@ -65,20 +66,17 @@ const usekey = async (challenge, id) => {
             "authData": arr2hex(assertion.response.authenticatorData),
             "Clientjson": arr2hex(assertion.response.clientDataJSON),
             "signature": arr2hex(assertion.response.signature),
-            "UserName": document.getElementById("username").value
+            "UserName": document.getElementById("username").value,
+            "SessionID": SessionID
         });
         let req = new XMLHttpRequest();
         req.open("POST", RPserver_Verify);
         req.setRequestHeader("Content-type", "application/json;charset=UTF-8");
-
-        req.setRequestHeader("authData", arr2hex(assertion.response.authenticatorData));
-        req.setRequestHeader("Clientjson", arr2hex(assertion.response.clientDataJSON));
-        req.setRequestHeader("signature", arr2hex(assertion.response.signature));
-        
         req.send(data);
         req.onreadystatechange = (e) => {
-            if (req.readyState == 4) {
+            if (req.readyState == 4 && req.status == 200) {
                 console.log(data);
+                alert("verify success!!");
             }
         };
     };
@@ -103,13 +101,29 @@ function newkey(attestationResponse) {
     const publicKeyBytes = authData.slice(55 + credentialIdLength);
     const publicKeyObject = CBOR.decode(publicKeyBytes.buffer);
     //console.log("byteid:",credentialId);
-    console.log("credentialId:", arr2hex(credentialId));
+    const id = arr2hex(credentialId);
+    console.log("credentialId:", id);
     //console.log(publicKeyObject);
     //console.log(publicKeyObject["-2"]);
     //console.log(publicKeyObject["-3"]);
-    console.log("Publickey X:", arr2hex(publicKeyObject["-2"]));
-    console.log("Publickey Y:", arr2hex(publicKeyObject["-3"]));
-    cid = arr2hex(credentialId);
+    const pubx = arr2hex(publicKeyObject["-2"]);
+    const puby = arr2hex(publicKeyObject["-3"]);
+    console.log("Publickey X:", pubx);
+    console.log("Publickey Y:", puby);
+    let xhr = new XMLHttpRequest()
+    xhr.open("POST", "/credential");
+    xhr.setRequestHeader("Content-type", "application/json;charset=UTF-8");
+    xhr.send(
+        JSON.stringify(
+            {
+                "UserName": username.value,
+                "Pubx": pubx,
+                "Puby": puby,
+                "ID": id
+            }
+        )
+    );
+    //cid = arr2hex(credentialId);
     return authData
 }
 
@@ -148,8 +162,23 @@ window.addEventListener(
         btn_get.addEventListener(
             "click",
             () => {
-                if (cid != "") {
-                    usekey(challenge.value, cid);
+                let xhr = new XMLHttpRequest()
+                xhr.open("POST", "/session");
+                xhr.setRequestHeader("Content-type", "application/json;charset=UTF-8");
+                xhr.send(
+                    JSON.stringify(
+                        {
+                            "UserName": username.value
+                        }
+                    )
+                );
+                xhr.onreadystatechange = () => {
+                    if (xhr.readyState == 4) {
+                        SessionID = JSON.parse(xhr.responseText).SessionID;
+                        cid = JSON.parse(xhr.responseText).ID;
+                        challenge.value = JSON.parse(xhr.responseText).Challenge;
+                        usekey(challenge.value, cid, SessionID);
+                    }
                 }
             }
         );
