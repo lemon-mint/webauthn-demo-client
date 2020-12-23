@@ -123,8 +123,10 @@ function newkey(attestationResponse) {
             }
         )
     );
-    xhr.onerror = ()=>{
-        alert("error username exists");
+    xhr.onreadystatechange = () => {
+        if (xhr.readyState == 4 && xhr.status != 200) {
+            alert("error username exists");
+        }
     };
     //cid = arr2hex(credentialId);
     return authData
