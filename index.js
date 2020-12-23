@@ -123,6 +123,9 @@ function newkey(attestationResponse) {
             }
         )
     );
+    xhr.onerror = ()=>{
+        alert("error username exists");
+    };
     //cid = arr2hex(credentialId);
     return authData
 }
